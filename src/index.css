@@ -29,7 +29,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   justify-content: center;
-  background-image: url(/public/img/bg.jpg);
+  background-image: url(/img/bg.jpg);
   background-size: cover;
 }
 
