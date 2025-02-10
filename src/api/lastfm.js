@@ -1,19 +1,15 @@
-import axios from "axios";
-
-const API_KEY = import.meta.env.VITE_LASTFM_API_KEY;
-const BASE_URL = "https://ws.audioscrobbler.com/2.0/";
-
 export const searchTracks = async (query) => {
+  console.log(`Fetching tracks for: ${query}`);
+
   try {
-    const response = await axios.get(BASE_URL, {
-      params: {
-        method: "track.search",
-        track: query,
-        api_key: API_KEY,
-        format: "json",
-      },
-    });
-    return response.data.results.trackmatches.track;
+    const response = await fetch(
+      `http://localhost:5000/api/search?track=${query}`
+    );
+    if (!response.ok) throw new Error("Failed to fetch data");
+
+    const data = await response.json();
+    console.log("Fetched data:", data); // Log the fetched data
+    return data.results.trackmatches.track || [];
   } catch (error) {
     console.error("Error fetching tracks:", error);
     return [];
